@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HTTPErrorHandler {
 
-	String path = "/error";
-
 	@RequestMapping(value = "/400")
 	public String error400(Model model) {
 		model.addAttribute("errorMsg", "custom error handler 400");
