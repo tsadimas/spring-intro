@@ -53,7 +53,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.update("delete from Users where id = ?", id);
 
 	}
 

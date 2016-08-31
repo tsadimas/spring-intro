@@ -50,6 +50,14 @@ public class UsersController {
 		
 	}
 	
+	@RequestMapping(value = "delete/{userId:\\d+}", method = RequestMethod.GET)
+	public String deleteUser(Model model, @PathVariable("userId") int userId) {
+		userDAO.deleteById(userId);
+		logger.info("inside delete ");
+		
+		return "redirect:/users/all";
+	}
+	
 	@RequestMapping(value="register", method = RequestMethod.POST)
 	public String createUser(Model model, @ModelAttribute("user")User user) {
 		
