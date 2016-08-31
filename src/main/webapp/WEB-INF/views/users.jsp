@@ -6,6 +6,7 @@
 				<th>Name</th>
 				<th>Email</th>
 				<th>Country</th>
+				<th>Link</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -15,6 +16,7 @@
 					<td><c:out value="${user.name}" /></td>
 					<td><c:out value="${user.email}" /></td>
 					<td><c:out value="${user.country}" /></td>
+					<td><a href="<c:url value="/users/user/${user.id}"/>">Details</a></td>
 					<td>
 		</td>
 				</tr>

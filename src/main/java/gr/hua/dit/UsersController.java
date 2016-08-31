@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,12 +40,30 @@ public class UsersController {
 		
 	}
 	
+	@RequestMapping(value = "user/{userId:\\d+}", method = RequestMethod.GET)
+	public String getUser(Model model, @PathVariable("userId") int userId) {
+		User user= userDAO.getById(userId);
+		
+		model.addAttribute("user", user);
+		
+		return "user";
+		
+	}
+	
 	@RequestMapping(value="register", method = RequestMethod.POST)
 	public String createUser(Model model, @ModelAttribute("user")User user) {
 		
 		logger.info("form name "+ user.getName() );
-		userDAO.save(user);
-		return "redirect:/dit/users";
+		if (user.getId() == 0 ) {
+			logger.info(" New User " );
+			userDAO.save(user);
+		}
+		else {
+			logger.info(" Existing User " );
+			userDAO.update(user);
+		}
+		
+		return "redirect:/users/all";
 
 	}
 	

@@ -21,7 +21,7 @@
 		<c:if test="${user.id != 0}">
 		<tr>
 			<td><form:label path="id">Id</form:label></td>
-			<td><form:input path="id" /></td>
+			<td><form:input path="id" readonly="true" /></td>
 		</tr>
 		</c:if>
 
