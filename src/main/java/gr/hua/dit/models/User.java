@@ -9,6 +9,7 @@ public class User implements Serializable {
 	private String email;
 	private int id;
 	private String country;
+	private String password;
 
 	
 	public void setName(String name) {
@@ -43,6 +44,15 @@ public class User implements Serializable {
 		return country;
 	}
 
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	@Override
 	public String toString() {
 		return "Name=" + this.name + ", Email=" + this.email + ", Country=" + this.country;

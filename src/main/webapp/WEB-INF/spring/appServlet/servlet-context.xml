@@ -31,14 +31,16 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://SERVER-NAME:3306/DB-NAMEt" />
-		<beans:property name="username" value="DB-USERNAME" />
-		<beans:property name="password" value="DB-PASSWORD" />
+			value="jdbc:mysql://SERVER-NAME:3306/DB-NAME" />
+		<beans:property name="username" value="USER" />
+		<beans:property name="password" value="PASSWORD" />
 	</beans:bean>
 
 	<beans:bean id="userDAO" class="gr.hua.dit.dao.UserDAOImpl">
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
+	
+	
 
 	<context:component-scan base-package="gr.hua.dit" />
 
