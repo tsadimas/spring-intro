@@ -13,6 +13,11 @@
 			<td><form:errors path="email" cssClass="error" /></td>
 		</tr>
 		<tr>
+			<td><form:label path="phone">Phone</form:label></td>
+			<td><form:input path="phone" /></td>
+			<td><form:errors path="phone" cssClass="error" /></td>
+		</tr>
+		<tr>
 			<td><form:label path="password">Password</form:label></td>
 			<td><form:input path="password" /></td>
 		</tr>

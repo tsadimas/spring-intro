@@ -33,8 +33,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void save(User user) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate.update("insert into Users (name, email, country, password) values (?, ?, ?, ?)", user.getName(),
-				user.getEmail(), user.getCountry(), user.getPassword());
+		jdbcTemplate.update("insert into Users (name, email, phone, country, password) values (?, ?, ?, ?)", user.getName(),
+				user.getEmail(), user.getPhone(), user.getCountry(), user.getPassword());
 
 	}
 
@@ -53,8 +53,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void update(User user) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate.update("update Users set  name = ?, email = ?, country = ?, password = ? where id = ?",
-				user.getName(), user.getEmail(), user.getCountry(), user.getPassword(), user.getId());
+		jdbcTemplate.update("update Users set  name = ?, email = ?, phone = ?, country = ?, password = ? where id = ?",
+				user.getName(), user.getEmail(), user.getPhone(), user.getCountry(), user.getPassword(), user.getId());
 
 	}
 
@@ -94,6 +94,7 @@ public class UserDAOImpl implements UserDAO {
 			user.setId(Integer.parseInt(String.valueOf(userRow.get("id"))));
 			user.setName(String.valueOf(userRow.get("name")));
 			user.setEmail(String.valueOf(userRow.get("email")));
+			user.setPhone(String.valueOf(userRow.get("phone")));
 			user.setCountry(String.valueOf(userRow.get("country")));
 			usersList.add(user);
 		}

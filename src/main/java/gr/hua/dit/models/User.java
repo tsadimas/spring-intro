@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import gr.hua.dit.validators.Phone;
+
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -1355807851822025659L;
@@ -20,6 +22,9 @@ public class User implements Serializable {
 	private int id;
 	private String country;
 	private String password;
+	
+	@Phone
+	private String phone;
 
 	
 	public void setName(String name) {
@@ -64,8 +69,20 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
+	
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 	@Override
 	public String toString() {
 		return "Name=" + this.name + ", Email=" + this.email + ", Country=" + this.country;
 	}
+
 }
