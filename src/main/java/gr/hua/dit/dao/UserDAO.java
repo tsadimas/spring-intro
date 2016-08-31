@@ -13,7 +13,7 @@ public interface UserDAO {
   //Update
   public void update(User user);
   //Delete
-  public void deleteById(int id);
-  //Get Allφ
+  public boolean deleteById(int id);
+  //Get All
   public List<User> getAll();
 }

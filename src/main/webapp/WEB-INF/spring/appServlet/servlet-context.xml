@@ -33,7 +33,7 @@
 		<beans:property name="url"
 			value="jdbc:mysql://SERVER-NAME:3306/DB-NAME" />
 		<beans:property name="username" value="USER" />
-		<beans:property name="password" value="PASSWORD" />
+		<beans:property name="password" value="PASWWORD" />
 	</beans:bean>
 
 	<beans:bean id="userDAO" class="gr.hua.dit.dao.UserDAOImpl">

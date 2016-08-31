@@ -6,14 +6,21 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jca.cci.InvalidResultSetAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import gr.hua.dit.HomeController;
 import gr.hua.dit.models.User;
 
 public class UserDAOImpl implements UserDAO {
+	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
 	@Qualifier("dataSource")
@@ -46,15 +53,30 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void update(User user) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate.update("update Users set  name = ?, email = ?, country = ?, password = ? where id = ?", 
+		jdbcTemplate.update("update Users set  name = ?, email = ?, country = ?, password = ? where id = ?",
 				user.getName(), user.getEmail(), user.getCountry(), user.getPassword(), user.getId());
 
 	}
 
 	@Override
-	public void deleteById(int id) {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate.update("delete from Users where id = ?", id);
+	public boolean deleteById(int id) {
+		Boolean state=false;
+		try {
+			JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+			jdbcTemplate.update("delete from Users where id = ?", id);
+			state=true;
+		} catch (InvalidResultSetAccessException e) {
+			state=false;
+			logger.info("InvalidResultSetAccessException");
+			
+			
+		} catch (DataAccessException e) {
+			state=false;
+			logger.info("DataAccessException " + e.getMessage());
+		
+		}
+		
+		return state;
 
 	}
 

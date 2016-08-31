@@ -52,10 +52,17 @@ public class UsersController {
 	
 	@RequestMapping(value = "delete/{userId:\\d+}", method = RequestMethod.GET)
 	public String deleteUser(Model model, @PathVariable("userId") int userId) {
-		userDAO.deleteById(userId);
-		logger.info("inside delete ");
 		
-		return "redirect:/users/all";
+		if (userDAO.deleteById(userId)) {
+			logger.info("in ok");
+			return "redirect:/users/all";
+		}
+		else {
+			logger.info("in error");
+			model.addAttribute("message", "Error when deleting user");
+			return "test";
+		}
+		
 	}
 	
 	@RequestMapping(value="register", method = RequestMethod.POST)
