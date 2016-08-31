@@ -33,7 +33,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void save(User user) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate.update("insert into Users (name, email, phone, country, password) values (?, ?, ?, ?)", user.getName(),
+		jdbcTemplate.update("insert into Users (name, email, phone, country, password) values (?, ?, ?, ?, ?)", user.getName(),
 				user.getEmail(), user.getPhone(), user.getCountry(), user.getPassword());
 
 	}
