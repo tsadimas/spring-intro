@@ -1,9 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head>
-<title>Login Form | www.beingjavaguys.com</title>
-</head>
-<body>
+
 	<center>
 		<br /> <br /> <br />
 		<h2>Login Here</h2>
