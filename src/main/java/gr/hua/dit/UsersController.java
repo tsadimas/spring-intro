@@ -32,6 +32,17 @@ public class UsersController {
 	@Qualifier("userDAO")
 	private UserDAO userDAO;
 
+	@RequestMapping(value = "administer", method = RequestMethod.GET)
+	public String administer(Model model) {
+		List<User> usersList = userDAO.getAll();
+
+		model.addAttribute("usersList", usersList);
+		model.addAttribute("action", "edit");
+
+		return "users";
+
+	}
+	
 	@RequestMapping(value = "all", method = RequestMethod.GET)
 	public String users(Model model) {
 		List<User> usersList = userDAO.getAll();
@@ -47,27 +58,23 @@ public class UsersController {
 		User user = userDAO.getById(userId);
 
 		model.addAttribute("user", user);
-
+		model.addAttribute("action", "/dit/register");
 		return "user";
 
 	}
+	
+	@RequestMapping(value = "user/edit/{userId:\\d+}", method = RequestMethod.GET)
+	public String getUserforEdit(Model model, @PathVariable("userId") int userId) {
+		User user = userDAO.getById(userId);
 
-	@RequestMapping(value = "delete/{userId:\\d+}", method = RequestMethod.GET)
-	public String deleteUser(Model model, @PathVariable("userId") int userId) {
-
-		if (userDAO.deleteById(userId)) {
-			logger.info("in ok");
-			return "redirect:/users/all";
-		} else {
-			logger.info("in error");
-			model.addAttribute("message", "Error when deleting user");
-			return "test";
-		}
+		model.addAttribute("user", user);
+		model.addAttribute("action", "/dit/users/update");
+		return "user";
 
 	}
-
-	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public String createUser(Model model, @ModelAttribute("user") @Valid User user, BindingResult result) {
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String updateUser(Model model, @ModelAttribute("user") @Valid User user, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "user";
@@ -86,13 +93,19 @@ public class UsersController {
 
 	}
 
-	@RequestMapping(value = "register", method = RequestMethod.GET)
-	public String register(Model model) {
-		model.addAttribute("title", "Register");
-		User user = new User();
-		model.addAttribute("user", user);
-		return "user";
+	@RequestMapping(value = "delete/{userId:\\d+}", method = RequestMethod.GET)
+	public String deleteUser(Model model, @PathVariable("userId") int userId) {
+
+		if (userDAO.deleteById(userId)) {
+			logger.info("in ok");
+			return "redirect:/users/all";
+		} else {
+			logger.info("in error");
+			model.addAttribute("message", "Error when deleting user");
+			return "test";
+		}
 
 	}
 
+	
 }

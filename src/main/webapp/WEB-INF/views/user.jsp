@@ -1,5 +1,5 @@
 <h3>${title}</h3>
-<form:form method="POST" action="/dit/users/register"
+<form:form method="POST" action="${action}"
 	modelAttribute="user">
 	<table>
 		<tr>
