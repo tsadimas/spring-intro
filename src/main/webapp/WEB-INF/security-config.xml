@@ -38,7 +38,10 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 	<!-- <authentication-manager> <authentication-provider> <user-service> <user 
 		name="user" password="user@123" authorities="ROLE_ADMIN" /> </user-service> 
 		</authentication-provider> </authentication-manager> -->
-
+ 
+ <global-method-security pre-post-annotations="enabled"/>
+ 
+ 
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
