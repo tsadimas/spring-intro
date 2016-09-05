@@ -19,10 +19,16 @@
 				<td><c:out value="${user.phone}" /></td>
 				<td><c:out value="${user.country}" /></td>
 				<td><a href="<c:url value="/users/user/${user.id}"/>">Details</a>
-					<c:if test="${action == 'edit'}"> <a href="<c:url value="/users/delete/${user.id}"/>">Delete</a></c:if></td>
+					<c:if test="${action == 'edit'}">
+						<a href="<c:url value="/users/delete/${user.id}"/>">Delete</a>
+					</c:if></td>
 				<td></td>
 			</tr>
 		</c:forEach>
 	</tbody>
+
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<a href="<c:url value="/register"/>">Register a new User</a>
+	</sec:authorize>
 	</body>
 	</html>

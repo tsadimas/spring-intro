@@ -102,4 +102,16 @@ public class UserDAOImpl implements UserDAO {
 		return usersList;
 	}
 
+	@Override
+	public User getByName(String name) {
+		String query = "select * from Users where name = ?";
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+		Object queryForObject = jdbcTemplate.queryForObject(query, new Object[] { name },
+				new BeanPropertyRowMapper<User>(User.class));
+		User user = (User) queryForObject;
+
+		return user;
+	}
+
 }

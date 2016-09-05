@@ -1,9 +1,11 @@
 package gr.hua.dit;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -119,7 +121,13 @@ public class HomeController {
 	}
 
 	@RequestMapping("user")
-	public String geUserPage() {
+	public String geUserPage(Model model, HttpServletRequest request) {
+		model.addAttribute("title", "User Page");
+		
+		Principal principal = request.getUserPrincipal();
+		logger.info(" Existing User " + principal.getName());
+		User user = userDAO.getByName(principal.getName());
+		model.addAttribute("user", user);
 		return "user";
 	}
 
@@ -130,7 +138,7 @@ public class HomeController {
 
 	@RequestMapping("403page")
 	public String ge403denied() {
-		return "redirect:login?denied";
+		return "redirect:/login?denied";
 	}
 
 }

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,16 +33,6 @@ public class UsersController {
 	@Qualifier("userDAO")
 	private UserDAO userDAO;
 
-	@RequestMapping(value = "administer", method = RequestMethod.GET)
-	public String administer(Model model) {
-		List<User> usersList = userDAO.getAll();
-
-		model.addAttribute("usersList", usersList);
-		model.addAttribute("action", "edit");
-
-		return "users";
-
-	}
 	
 	@RequestMapping(value = "all", method = RequestMethod.GET)
 	public String users(Model model) {
@@ -93,6 +84,7 @@ public class UsersController {
 
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "delete/{userId:\\d+}", method = RequestMethod.GET)
 	public String deleteUser(Model model, @PathVariable("userId") int userId) {
 

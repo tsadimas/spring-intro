@@ -24,10 +24,10 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/home" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-		<intercept-url pattern="/users/all" access="hasAuthority('ROLE_USER')" />
+		<intercept-url pattern="/users/all" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<intercept-url pattern="/users/administer" access="hasAuthority('ROLE_ADMIN')" />
 		<intercept-url pattern="/users/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-		<intercept-url pattern="/admin**" access="hasAuthority('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
 		<form-login login-page='/login' username-parameter="username"
 			password-parameter="password" default-target-url="/home"
 			authentication-failure-url="/login?authfailed" />
