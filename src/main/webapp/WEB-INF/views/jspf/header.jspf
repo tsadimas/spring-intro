@@ -13,4 +13,8 @@
 	type="text/javascript"></script>
 </head>
 <body>
+
+<sec:authorize access="isAuthenticated()">
+		Hello <b><c:out value="${pageContext.request.remoteUser}" /></b>. <a href="<c:url value="/home"/>">Home</a>
+	</sec:authorize>
 	

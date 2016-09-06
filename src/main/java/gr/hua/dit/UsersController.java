@@ -1,5 +1,6 @@
 package gr.hua.dit;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,12 +48,13 @@ public class UsersController {
 
 	}
 
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "user/{userId:\\d+}", method = RequestMethod.GET)
 	public String getUser(Model model, @PathVariable("userId") int userId) {
 		User user = userDAO.getById(userId);
 
 		model.addAttribute("user", user);
-		model.addAttribute("action", "/dit/register");
+		model.addAttribute("action", "/dit/users/update");
 		return "user";
 
 	}
@@ -65,9 +69,11 @@ public class UsersController {
 
 	}
 	
+	@PreAuthorize ("#user.name == principal.username")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String updateUser(Model model, @ModelAttribute("user") @Valid User user, BindingResult result) {
 
+		logger.info(" New User ");
 		if (result.hasErrors()) {
 			return "user";
 		}

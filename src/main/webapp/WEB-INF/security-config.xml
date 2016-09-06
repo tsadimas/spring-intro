@@ -23,10 +23,13 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 		<access-denied-handler error-page="/403page" />
 		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/" access="permitAll" />
-		<intercept-url pattern="/home" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-		<intercept-url pattern="/users/all" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<intercept-url pattern="/home"
+			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<intercept-url pattern="/users/all"
+			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<intercept-url pattern="/users/administer" access="hasAuthority('ROLE_ADMIN')" />
-		<intercept-url pattern="/users/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<intercept-url pattern="/users/**"
+			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
 		<form-login login-page='/login' username-parameter="username"
 			password-parameter="password" default-target-url="/home"
@@ -35,17 +38,11 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 			delete-cookies="JSESSIONID" />
 	</http>
 
-	<!-- <authentication-manager> <authentication-provider> <user-service> <user 
-		name="user" password="user@123" authorities="ROLE_ADMIN" /> </user-service> 
-		</authentication-provider> </authentication-manager> -->
- 
- <global-method-security pre-post-annotations="enabled"/>
- 
- 
+
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select name as username ,password, enabled from Users where name=?"
+				users-by-username-query="select name as username ,password, enabled, id from Users where name=?"
 				authorities-by-username-query="SELECT name as username, authority as role
 FROM Users, User_roles
 WHERE name =  ?
